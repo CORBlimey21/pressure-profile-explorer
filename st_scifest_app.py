@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import streamlit as st
 
 st.markdown(
     """
@@ -21,7 +20,7 @@ st.markdown(
 df = pd.read_csv("2and5.csv")
 
 st.title("🎓 Pressure Profile Explorer")
-st.write("Enter your weekly extracurricular and daily acadmiec hours **outside of school** to discover your pressure profile based on real student data.")
+st.write("Enter your weekly extracurricular and daily academic hours **outside of school** to discover your pressure profile based on real student data.")
 
 # User input sliders with your specific limits
 ec_input = st.slider("🎨 Weekly Extracurricular Hours", 0.5, 8.0, 2.0, 0.5)
@@ -84,45 +83,14 @@ if similar_students.empty:
     st.warning("No similar students found. Try different values.")
 else:
     avg_pressure = similar_students['pressure'].mean()
-    st.metric("📊 Average Pressure Level (based on students' self reports)", f"{avg_pressure:.2f} / 5")
-
     profile_type = determine_profile(ec_input, hw_input)
     st.subheader(f"🧬 Your Pressure Profile: {profile_type}")
 
     for trait in show_traits(profile_type):
         st.markdown(f"- {trait}")
 
-import matplotlib.pyplot as plt
 
-# Plotting Histogram (Activity vs Pressure)
-
-   
-    # Create a 'profile' column in the DataFrame based on the student data
-df['profile'] = df.apply(lambda row: determine_profile(row['ec_hours'], row['hw_hours']), axis=1)
-
-# Plot pie chart with adjustments
-profile_counts = df['profile'].value_counts()
-
-# Plot pie chart with adjustments
-fig, ax = plt.subplots(figsize=(8, 8))  # Increase figure size
-ax.pie(profile_counts, 
-       labels=profile_counts.index, 
-       autopct='%1.1f%%', 
-       startangle=90, 
-       colors=['skyblue', 'lightgreen', 'lightcoral', 'gold', 'lightskyblue'],
-       pctdistance=0.70,  # Move percentage text further from the center
-       labeldistance=1.1,  # Move labels further out
-       wedgeprops={'edgecolor': 'black', 'linewidth': 1})  # Add border to wedges
-
-# Title
-ax.set_title("Distribution of Student Profiles")
-
-# Display the chart
-st.pyplot(fig)
-
-
-
-
+st.markdown("### 📊 This will help you comapare your perdicted pressure from your time commitments with the perdicted pressure from your activities ")
 st.markdown("### 🎭 What activities do you take part in? (Pick all that apply)")
 with st.expander("Select your activities"):
     activity_options = {
@@ -163,6 +131,39 @@ if selected_activities:
     else:
         st.info("📘 Your activity choices align with your estimated pressure.")
         st.markdown("This suggests you're feeling roughly what most students with your time commitments feel.")
+
+
+import matplotlib.pyplot as plt
+
+
+
+   
+    # Create a 'profile' column in the DataFrame based on the student data
+df['profile'] = df.apply(lambda row: determine_profile(row['ec_hours'], row['hw_hours']), axis=1)
+
+# Plot pie chart with adjustments
+profile_counts = df['profile'].value_counts()
+
+# Plot pie chart with adjustments
+fig, ax = plt.subplots(figsize=(8, 8))  # Increase figure size
+ax.pie(profile_counts, 
+       labels=profile_counts.index, 
+       autopct='%1.1f%%', 
+       startangle=90, 
+       colors=['skyblue', 'lightgreen', 'lightcoral', 'gold', 'lightskyblue'],
+       pctdistance=0.70,  # Move percentage text further from the center
+       labeldistance=1.1,  # Move labels further out
+       wedgeprops={'edgecolor': 'black', 'linewidth': 1})  # Add border to wedges
+
+# Title
+ax.set_title("Distribution of Student Profiles")
+
+# Display the chart
+st.pyplot(fig)
+
+
+
+
 
 
 
