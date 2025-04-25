@@ -90,8 +90,10 @@ else:
         st.markdown(f"- {trait}")
 
 
-st.markdown("### 📊 This will help you comapare your perdicted pressure from your time commitments with the perdicted pressure from your activities ")
+
 st.markdown("### 🎭 What activities do you take part in? (Pick all that apply)")
+st.write("This will help you compare your predicted pressure from your time commitments with the predicted pressure from your activities.")
+
 with st.expander("Select your activities"):
     activity_options = {
         "Academic (Chess, Debating etc)": 3.0,
