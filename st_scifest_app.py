@@ -34,8 +34,7 @@ st.markdown(
 
 
 # Load dataset
-df = pd.read_csv("2and5.csv")
-
+df = pd.rdf = pd.read_csv("2and5.csv")
 st.title("🎓 Pressure Profile Explorer")
 st.write("Enter your weekly extracurricular and daily academic hours **outside of school** to discover your pressure profile based on real student data.")
 
@@ -106,8 +105,7 @@ else:
     for trait in show_traits(profile_type):
         st.markdown(f"- {trait}")
 
-
-st.subheader("Some wellbeing tips based on your profile:")
+st.subheader("Your Personalised Well-Being Tips:")
 # Provide tailored advice based on the profile type        
 if profile_type == "Stretched Achiever":
     st.write("⚠️ You might be feeling **higher pressure** than your peers. Consider balancing your commitments.")
@@ -170,34 +168,68 @@ if selected_activities:
         st.info("📘 Your activity choices align with your estimated pressure.")
         st.markdown("This suggests you're feeling roughly what most students with your time commitments feel.")
 
+import plotly.express as px
 
-import matplotlib.pyplot as plt
+# Define traits for each profile type
+profile_traits = {
+    "Stretched Achiever": [
+        "🎯 Aim for top grades",
+        "📅 Participate in many demanding activities",
+        "⚠️ Often report stress"
+    ],
+    "Take-it-easy Explorer": [
+        "😌 Low homework and activity load",
+        "🌱 Enjoy life without pressure",
+        "🎨 Tend to explore interests casually"
+    ],
+    "Activity Adventurer": [
+        "🎭 Prefer extracurriculars and hobbies",
+        "🎸 Trade off study time for passions"
+    ],
+    "Academic Driver": [
+        "📖 Strong academic focus",
+        "📈 May feel academic pressure"
+    ],
+    "Well-Rounded Learner": [
+        "🔄 Balanced routine",
+        "🙂 Moderate pressure levels"
+    ]
+}
 
-
-
-   
-    # Create a 'profile' column in the DataFrame based on the student data
+# Create a 'profile' column in the DataFrame based on the student data
 df['profile'] = df.apply(lambda row: determine_profile(row['ec_hours'], row['hw_hours']), axis=1)
 
-# Plot pie chart with adjustments
+# Count occurrences of each profile
 profile_counts = df['profile'].value_counts()
 
-# Plot pie chart with adjustments
-fig, ax = plt.subplots(figsize=(8, 8))  # Increase figure size
-ax.pie(profile_counts, 
-       labels=profile_counts.index, 
-       autopct='%1.1f%%', 
-       startangle=90, 
-       colors=['skyblue', 'lightgreen', 'lightcoral', 'gold', 'lightskyblue'],
-       pctdistance=0.70,  # Move percentage text further from the center
-       labeldistance=1.1,  # Move labels further out
-       wedgeprops={'edgecolor': 'black', 'linewidth': 1})  # Add border to wedges
 
-# Title
-ax.set_title("Distribution of Student Profiles")
 
-# Display the chart
-st.pyplot(fig)
+# Add profile traits as custom data
+# Map the traits of each profile to the corresponding entries in the DataFrame
+custom_data = profile_counts.index.map(lambda profile: "<br>".join(profile_traits[profile]))
+
+# Create a custom hover template to display profile name and associated traits
+hover_template = '<b>Profile: %{label}</b><br>' \
+                 'Count: %{value}<br>' \
+                 'Percentage: %{percent:.2%}<br>' \
+                 'Characteristics: %{customdata}'
+
+# Create the Plotly pie chart
+fig = px.pie(
+    names=profile_counts.index,
+    values=profile_counts.values,
+    title="Distribution of Student Profiles",
+    color=profile_counts.index,
+    color_discrete_sequence=['skyblue', 'lightgreen', 'lightcoral', 'gold', 'pink'],
+)
+
+# Update the traces with custom data for the hover template
+fig.update_traces(customdata=custom_data, hovertemplate=hover_template)
+
+# Show the plot in Streamlit
+st.plotly_chart(fig)
+
+
 
 
 
