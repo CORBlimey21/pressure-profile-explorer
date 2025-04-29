@@ -111,14 +111,19 @@ st.subheader("Some wellbeing tips based on your profile:")
 # Provide tailored advice based on the profile type        
 if profile_type == "Stretched Achiever":
     st.write("⚠️ You might be feeling **higher pressure** than your peers. Consider balancing your commitments.")
+    st.write("Take regular breaks, and try using time management tools like the Pomodoro technique. You might also consider delegating tasks or saying 'no' to extra commitments when possible. Your mental health is as important as your success.")
 elif profile_type == "Take-it-easy Explorer":
     st.write("✅ You seem to have a **relaxed schedule**. This is great for your well-being!")
+    st.write("While it's fantastic to have less pressure, make sure to keep exploring new activities or skills that excite you. Sometimes it helps to set small goals to push yourself, even if it's just in your hobbies, to avoid stagnation and maintain motivation.")
 elif profile_type == "Activity Adventurer":
     st.write("🎨 You are actively engaged in extracurriculars, which is fantastic for personal growth!")
+    st.write("It’s awesome that you’re following your passions, but be mindful not to burn out. Try to set aside time for relaxation or schoolwork. Keep a balanced routine so you don’t sacrifice academic progress for fun. Avoiding cramming and downtime are important too!")
 elif profile_type == "Academic Driver":
     st.write("📚 Your focus on academics is commendable, but ensure to take breaks for your mental health.")
+    st.write("Consider practicing mindfulness techniques like deep breathing or meditation to reduce stress. Regular exercise can also help clear your mind and improve focus. Don’t forget to make time for activities that recharge you, whether it’s a hobby or spending time with friends.")
 elif profile_type == "Well-Rounded Learner":
     st.write("🌟 You maintain a balanced approach, which is key to sustainable success!")
+    st.write("Keep up the good work! Continue to explore new interests and maintain a healthy balance between academics and extracurriculars. Regularly check in with yourself to ensure you’re not overcommitting. Remember, it’s okay to take breaks and prioritize your well-being.")
 
 
 
