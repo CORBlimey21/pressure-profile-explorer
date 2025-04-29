@@ -55,12 +55,12 @@ similar_students = df[ec_range & hw_range]
 
 # Determine profile
 def determine_profile(ec, hw):
-    if abs(hw - ec) <= 1.0:
-        return "Well-Rounded Learner"
-    elif ec >= 4 and hw >= 2.5:
-        return "Stretched Achiever"    
-    elif ec <= 1 and hw <= 1:
+    if ec <= 1 and hw <= 1:
         return "Take-it-easy Explorer"
+    elif ec >= 4 and hw >= 2.5:
+        return "Stretched Achiever"  
+    elif abs(hw - ec) <= 1.0:
+        return "Well-Rounded Learner"
     elif ec > hw:
         return "Activity Adventurer"
     elif hw > ec:
@@ -105,6 +105,20 @@ else:
 
     for trait in show_traits(profile_type):
         st.markdown(f"- {trait}")
+
+
+st.subheader("Some wellbeing tips based on your profile:")
+# Provide tailored advice based on the profile type        
+if profile_type == "Stretched Achiever":
+    st.write("⚠️ You might be feeling **higher pressure** than your peers. Consider balancing your commitments.")
+elif profile_type == "Take-it-easy Explorer":
+    st.write("✅ You seem to have a **relaxed schedule**. This is great for your well-being!")
+elif profile_type == "Activity Adventurer":
+    st.write("🎨 You are actively engaged in extracurriculars, which is fantastic for personal growth!")
+elif profile_type == "Academic Driver":
+    st.write("📚 Your focus on academics is commendable, but ensure to take breaks for your mental health.")
+elif profile_type == "Well-Rounded Learner":
+    st.write("🌟 You maintain a balanced approach, which is key to sustainable success!")
 
 
 
