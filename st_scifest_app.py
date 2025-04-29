@@ -9,11 +9,28 @@ st.markdown(
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
-        padding: 5rem 2rem;  /* Optional: Adjust padding for better visibility */
+        padding: 2rem;
+        color: #000000;
+    }
+
+    h1, h2, h3 {
+        color: #222222;
+    }
+
+    .stSlider label {
+        font-weight: bold;
+    }
+
+    .stMetric {
+        background-color: rgba(255, 255, 255, 0.7);
+        border-radius: 10px;
+        padding: 1rem;
     }
     </style>
-    """, unsafe_allow_html=True
+    """,
+    unsafe_allow_html=True
 )
+
 
 
 # Load dataset
